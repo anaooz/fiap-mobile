@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Button, FlatList, Image } from 'react-native';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, Image } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 export default function App() {
   const [dog, setDog] = useState([])
