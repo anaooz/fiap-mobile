@@ -10,7 +10,7 @@ export default function App() {
   const getMovies = () => {
     try {
       const response = fetch('https://reactnative.dev/movies.json').then(
-        (response) => response.json
+        (response) => response.json()
       ).then(
         (response) => console.log(response)
       )
@@ -24,7 +24,7 @@ export default function App() {
     try {
       const response = await fetch('https://reactnative.dev/movies.json')
       
-      const json = await response.json
+      const json = await response.json()
       
       setMovies(json.movies)
     } catch (error) {
