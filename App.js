@@ -1,11 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
+import { useEffect, useState } from 'react';
+import { Button, FlatList, Image } from 'react-native';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
+  const [dog, setDog] = useState([])
+
+  console.log(dog)
+
+  const getDogs = async () => {
+    try {
+      const response = await fetch('https://dog.ceo/api/breeds/image/random')
+      
+      const json = await response.json()
+      
+      setDog(json)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getDogs()
+  }, [])
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Image source={{uri: dog.message}} style={styles.dogImage}/>
+      <Button title='Novo Dog' onPress={getDogs}/>
     </View>
   );
 }
@@ -17,4 +37,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  dogImage: {
+    width: 150,
+    height: 150
+  }
 });
