@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, FlatList } from 'react-native';
+import { api } from './api'
 
 export default function App() {
   const [pokemonsIniciais, setPokemonsIniciais] = useState([]);
   const [pokemonEscolhido, setPokemonEscolhido] = useState(null);
 
-  const getInitialPokemons = () => {
-    const endpoint = `https://pokeapi.co/api/v2/pokemon`
 
-    fetch(endpoint)
-      .then(response => response.json())
+  const getInitialPokemons = () => {
+
+   api.get()
       .then(response => {
-        const data = response.results;
+        const data = response.data.results;
         setPokemonsIniciais(data);
       })
       .catch((err) => {
@@ -21,13 +21,12 @@ export default function App() {
   }
 
   const getPokemonData = (url) => {
-    fetch(url)
-      .then(response => response.json())
+    api.get(url)
       .then(response => {
         const pokemon = {
-          nome: response.name,
-          img: response.sprites.other['official-artwork'].front_default,
-          peso: response.weight,
+          nome: response.data.name,
+          img: response.data.sprites.other['official-artwork'].front_default,
+          peso: response.data.weight,
         };
 
         setPokemonEscolhido(pokemon);
